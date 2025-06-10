@@ -103,7 +103,7 @@ elif st.session_state.page == "Resume Viewer":
         st.markdown(f"- Resume Score: {candidate.get('Score', 'N/A')}")
         st.markdown(f"- Overall Score: {candidate.get('probability_score', 'N/A')}")
         st.markdown(f"- Status: {'Approved' if candidate['flagged'] == 0 else 'Fraud'}")
-        display_resume(selected_id)
+        display_resume_text(selected_id)
         if st.button("Go Back"):
             st.session_state.page = "Dashboard"
             st.rerun()
