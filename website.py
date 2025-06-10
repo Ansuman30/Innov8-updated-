@@ -5,6 +5,8 @@ import base64
 import os
 import zipfile
 
+st.set_page_config(layout="wide")
+
 # === Auto-extract ZIPs if present ===
 def extract_zip_once(zip_path, extract_to):
     if os.path.exists(zip_path) and not os.path.exists(extract_to):
@@ -31,8 +33,8 @@ total = len(df)
 approved = len(df[df["flagged"] == 0])
 fraud = len(df[df["flagged"] == 1])
 
-# Streamlit UI setup
-st.set_page_config(layout="wide")
+
+
 st.title("Candidate Fraud Detection Dashboard")
 
 # Page navigation
