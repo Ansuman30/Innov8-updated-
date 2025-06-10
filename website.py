@@ -25,18 +25,20 @@ if "page" not in st.session_state:
 if "selected_id" not in st.session_state:
     st.session_state.selected_id = None
 
-# ✅ Resume display from folders
 def display_resume(candidate_id):
     resume_path = os.path.join("Final_Resumes_1", f"Resume_of_ID_{candidate_id}.pdf")
     if os.path.exists(resume_path):
         with open(resume_path, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
-        href = f'<a href="data:application/pdf;base64,{base64_pdf}" download="Resume_of_ID_{candidate_id}.pdf">Click to download Resume</a>'
-        st.markdown(href, unsafe_allow_html=True)
+            pdf_bytes = f.read()
+        st.download_button(
+            label="📄 Download Resume",
+            data=pdf_bytes,
+            file_name=f"Resume_of_ID_{candidate_id}.pdf",
+            mime="application/pdf"
+        )
     else:
         st.warning("Resume not found.")
+
 
 # === Dashboard Page ===
 if st.session_state.page == "Dashboard":
