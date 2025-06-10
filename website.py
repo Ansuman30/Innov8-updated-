@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import base64
 import os
-
+import fitz
 # ✅ Set page config as the FIRST Streamlit command
 st.set_page_config(layout="wide")
 
@@ -25,20 +25,16 @@ if "page" not in st.session_state:
 if "selected_id" not in st.session_state:
     st.session_state.selected_id = None
 
-def display_resume(candidate_id):
+def display_resume_text(candidate_id):
     resume_path = os.path.join("Final_Resumes_1", f"Resume_of_ID_{candidate_id}.pdf")
     if os.path.exists(resume_path):
-        with open(resume_path, "rb") as f:
-            pdf_bytes = f.read()
-        st.download_button(
-            label="📄 Download Resume",
-            data=pdf_bytes,
-            file_name=f"Resume_of_ID_{candidate_id}.pdf",
-            mime="application/pdf"
-        )
+        with fitz.open(resume_path) as doc:
+            text = ""
+            for page in doc:
+                text += page.get_text()
+        st.text_area("Resume Preview", text, height=300)
     else:
         st.warning("Resume not found.")
-
 
 # === Dashboard Page ===
 if st.session_state.page == "Dashboard":
