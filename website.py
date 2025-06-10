@@ -5,24 +5,19 @@ import base64
 import os
 import zipfile
 
+
 st.set_page_config(layout="wide")
 
-# === Auto-extract ZIPs if present ===
+# ✅ Auto-extract ZIPs if not already extracted
 def extract_zip_once(zip_path, extract_to):
     if os.path.exists(zip_path) and not os.path.exists(extract_to):
         os.makedirs(extract_to, exist_ok=True)
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_to)
-        st.info(f"Extracted {os.path.basename(zip_path)} to {extract_to}")
 
-# Paths to your ZIP files and target folders
-resume_zip_path = "Final_Resumes.zip"
-rec_zip_path = "Final_Recommendations.zip"
-resume_extract_path = "Final_Resumes_1"
-rec_extract_path = "Final_Recommendations_1"
+# ✅ Make sure the ZIP files are in the repo root
+extract_zip_once("Final_Resumes.zip", "Final_Resumes_1")
 
-extract_zip_once(resume_zip_path, resume_extract_path)
-extract_zip_once(rec_zip_path, rec_extract_path)
 
 # Load Data
 df = pd.read_csv("mostfinaloutput.csv")
@@ -44,7 +39,6 @@ if "page" not in st.session_state:
 if "selected_id" not in st.session_state:
     st.session_state.selected_id = None
 
-# Shared resume display function
 def display_resume(candidate_id):
     resume_path = os.path.join("Final_Resumes", f"Resume_of_ID_{candidate_id}.pdf")
     if os.path.exists(resume_path):
@@ -55,7 +49,8 @@ def display_resume(candidate_id):
         href = f'<a href="data:application/pdf;base64,{base64_pdf}" download="Resume_of_ID_{candidate_id}.pdf">Click to download Resume</a>'
         st.markdown(href, unsafe_allow_html=True)
     else:
-        st.warning("Resume not found.")
+        st.warning(f"Resume for ID {candidate_id} not found at: {resume_path}")
+
 
 if st.session_state.page == "Dashboard":
     col1, col2, col3 = st.columns(3)
