@@ -1,4 +1,4 @@
-# Innov8-updated-AI-ResumeScrrening
+# Innov8-updated-AI-ResumeScreening
 
 This was one of the PS given in hackathon Innov8 2.0 at IITD Final Round.
 
