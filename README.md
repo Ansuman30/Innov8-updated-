@@ -16,6 +16,9 @@ A final score metrics was calculated by manually giving weights to each of the f
 final.ipynb file explains the calculation and several csv file created . Each of the csv file shows the each individual factor and later on merged on mostfinaloutput.csv to label Approved and Fraud.
 website.py represents the streamlit python code to run by using command streamlit run website.py
 
+
+#Demo- https://www.youtube.com/watch?v=9vMH7rwDOsQ
+
 #Website-
 For convienience streamlit app has been created and hosted online and one could access through this link https://tjfcp6ggnhhzhtqhtvzynx.streamlit.app/   
 Search feature, checking each of the score as well as the content present in resume of that ID. Distribution of classification in the form of number as well as in pie chart.
